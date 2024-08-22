@@ -1,8 +1,8 @@
-baseURL: "p4arth.github.io"
+baseURL: "https://p4arth.github.io"
 title: ExampleSite
 paginate: 5
 theme: PaperMod
-
+publishDir: docs
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
