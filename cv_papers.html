@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Paper Collection</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        /* Dark Theme Sidebar */
+        .sidebar {
+            width: 300px;
+            background-color: #2d2d2d;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #404040;
+        }
+
+        .category {
+            margin-bottom: 15px;
+        }
+
+        .category-header {
+            padding: 10px;
+            background-color: #404040;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .category-header:hover {
+            background-color: #4d4d4d;
+        }
+
+        .toggle-icon {
+            margin-right: 10px;
+            transition: transform 0.2s;
+            color: #3498db;
+        }
+
+        .sub-items {
+            margin-left: 20px;
+            display: none;
+            padding: 10px 0;
+        }
+
+        .sub-items.active {
+            display: block;
+        }
+
+        .paper-link {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .paper-link:hover {
+            background-color: #404040;
+            color: #ffffff;
+        }
+
+        /* Dark Theme Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #252525;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #paper-title {
+            font-size: 1.4rem;
+            color: #3498db;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #404040;
+        }
+
+        #pdf-container {
+            flex: 1;
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #404040;
+        }
+
+        #pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Classical Vision -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <span class="toggle-icon">▼</span>
+                Classical Vision
+            </div>
+            <div class="sub-items">
+                <!-- Edge Detection -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▼</span>
+                        Edge Detection
+                    </div>
+                    <div class="sub-items active">
+                        <a href="http://midag.cs.unc.edu/pubs/CScourses/254-Spring2002/Canny1986.pdf" class="paper-link" onclick="loadPaper(event, this)">Canny Edge Detection</a>
+                        <a href="https://openaccess.thecvf.com/content_iccv_2013/papers/Dollar_Structured_Forests_for_2013_ICCV_paper.pdf" class="paper-link" onclick="loadPaper(event, this)">Structured Forests</a>
+                        <a href="https://web.mit.edu/phillipi/www/publications/crisp_boundaries.pdf" class="paper-link" onclick="loadPaper(event, this)">Crisp Boundary Detection</a>
+                        <a href="https://arxiv.org/pdf/1504.06375" class="paper-link" onclick="loadPaper(event, this)">Holistically Nested Edge Detection</a>
+                    </div>
+                </div>
+
+                <!-- Corner Detection -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Corner Detection
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://home.cis.rit.edu/~cnspci/references/dip/feature_extraction/harris1988.pdf" class="paper-link" onclick="loadPaper(event, this)">Harris Corner Detector</a>
+                    </div>
+                </div>
+
+                <!-- Keypoint Detection -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Keypoint Detection & Feature Extraction
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" class="paper-link" onclick="loadPaper(event, this)">SIFT</a>
+                        <a href="https://people.ee.ethz.ch/~surf/eccv06.pdf" class="paper-link" onclick="loadPaper(event, this)">SURF</a>
+                    </div>
+                </div>
+
+                <!-- Image Matching -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Image Matching
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://courses.cs.washington.edu/courses/cse576/05sp/papers/Brown_cvpr05.pdf" class="paper-link" onclick="loadPaper(event, this)">Multiscale Oriented Matching</a>
+                    </div>
+                </div>
+
+                <!-- Image Segmentation -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Image Segmentation
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://people.eecs.berkeley.edu/~malik/papers/SM-ncut.pdf" class="paper-link" onclick="loadPaper(event, this)">Normalized Cuts</a>
+                        <a href="https://courses.csail.mit.edu/6.869/handouts/PAMIMeanshift.pdf" class="paper-link" onclick="loadPaper(event, this)">Mean Shift</a>
+                    </div>
+                </div>
+
+                <!-- Line Detection -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Line Detection
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://www.cse.unr.edu/~bebis/CS474/Handouts/HoughTransformPaper.pdf" class="paper-link" onclick="loadPaper(event, this)">Hough Transform</a>
+                        <a href="https://arxiv.org/pdf/1502.02160" class="paper-link" onclick="loadPaper(event, this)">Hough Transform Survey</a>
+                    </div>
+                </div>
+
+                <!-- Image Representation -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Image Representation
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/2107.11943" class="paper-link" onclick="loadPaper(event, this)">Log Polar Representation</a>
+                        <a href="https://en.wikipedia.org/wiki/Maximally_stable_extremal_regions" class="paper-link" onclick="loadPaper(event, this)">Maximally Stable Extremal Regions</a>
+                        <a href="http://vision.stanford.edu/teaching/cs231b_spring1213/papers/CVPR05_DalalTriggs.pdf" class="paper-link" onclick="loadPaper(event, this)">Histogram of Oriented Gradients</a>
+                        <a href="https://www.robots.ox.ac.uk/~vgg/publications/2007/Bosch07/bosch07.pdf" class="paper-link" onclick="loadPaper(event, this)">Spatial Pyramid Kernel</a>
+                        <a href="https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289h-fall2014/ECS289H_1009_VideoGoogle.pdf" class="paper-link" onclick="loadPaper(event, this)">Text Retrieval for Image Matching</a>
+                        <a href="https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/csurka-eccv-04.pdf" class="paper-link" onclick="loadPaper(event, this)">Bag of Keypoints</a>
+                        <a href="https://www.robots.ox.ac.uk/~vgg/publications/2013/arandjelovic13/arandjelovic13.pdf" class="paper-link" onclick="loadPaper(event, this)"> Vector of Locally Aggregated Descriptors (VLAD)</a>
+                    </div>
+                </div>
+
+                <!-- Feature Matching -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Feature/Descriptor Matching
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://www.ri.cmu.edu/pub_files/pub3/lucas_bruce_d_1981_1/lucas_bruce_d_1981_1.pdf" class="paper-link" onclick="loadPaper(event, this)">Optical Flow</a>
+                        <a href="https://en.wikipedia.org/wiki/Random_sample_consensus" class="paper-link" onclick="loadPaper(event, this)">RANSAC</a>
+                        <a href="https://web.ece.ucsb.edu/~manj/ece181b-Winter2010/lectures/12%20bagofwords.pdf" class="paper-link" onclick="loadPaper(event, this)">Scalable Recognition</a>
+                        <a href="https://openaccess.thecvf.com/content_iccv_2013/papers/Tolias_To_Aggregate_or_2013_ICCV_paper.pdf" class="paper-link" onclick="loadPaper(event, this)">Selective Match Kernels</a>
+                        <a href="https://www.cs.utexas.edu/~grauman/papers/grauman_darrell_cvpr2004.pdf" 
+                            class="paper-link" 
+                            target="_blank">
+                            Pyramid Matching
+                        </a>
+                        <a href="https://www.inf.ed.ac.uk/teaching/courses/av/LECTURE_NOTES/swainballard91.pdf" 
+                            class="paper-link" 
+                            target="_blank">
+                            Color Indexing
+                        </a>
+                        <a href="https://people.csail.mit.edu/indyk/emd.pdf" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                            Fast Image Retrieval via Embeddings
+                        </a>
+                        <a href="https://www.cs.utexas.edu/~grauman/papers/grauman_darrell_nips2006.pdf" 
+                            class="paper-link" 
+                            target="_blank">
+                            Approximate Correspondences
+                        </a>
+                        <a href="https://www.cs.utexas.edu/~grauman/papers/grauman_darrell_iccv2005.pdf" 
+                            class="paper-link" 
+                            target="_blank">
+                            EarthMover's Distance Matching
+                        </a>
+                        <a href="https://inc.ucsd.edu/mplab/users/marni/Igert/Lazebnik_06.pdf" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                            Spatial Pyramid Matching
+                        </a>
+                        <a href="http://image.ntua.gr/iva/files/hpm_iccv11a.pdf" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                            Hough Pyramid Matching
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deep Vision -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <span class="toggle-icon">▶</span>
+                Deep Vision
+            </div>
+            <div class="sub-items">
+                <!-- Convolutional Neural Networks -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Convolutional Neural Networks
+                    </div>
+                    <div class="sub-items">
+                        <a href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                LeCun CNN (1998)
+                        </a>
+                        <a href="https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                Backpropagation in CNNs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1406.4729" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                Spatial Pyramid Pooling
+                        </a>
+                        <a href="https://arxiv.org/pdf/1506.03767" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                Spectral Representations for CNNs
+                        </a>
+                        <a href="https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf" 
+                            class="paper-link" 
+                            target="_blank">
+                                AlexNet (2012)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1311.2901" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                ZFNet
+                        </a>
+                        <a href="https://arxiv.org/pdf/1409.1556" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                VGGNet
+                        </a>
+                        <a href="https://arxiv.org/pdf/1409.4842" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                GoogLeNet
+                        </a>
+                        <a href="https://arxiv.org/pdf/1512.03385" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                ResNets
+                        </a>
+                        <a href="https://arxiv.org/pdf/1603.05027" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                Identity Mapping in ResNets
+                        </a>
+                        <a href="https://arxiv.org/pdf/1605.07146" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                Wide Residual Networks
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Xie_Aggregated_Residual_Transformations_CVPR_2017_paper.pdf" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                ResNeXt
+                        </a>
+                        <a href="https://arxiv.org/pdf/1603.09382" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                Stochastic Depth Networks
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Huang_Densely_Connected_Convolutional_CVPR_2017_paper.pdf" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                DenseNets
+                        </a>
+                        <a href="https://arxiv.org/pdf/1704.04861" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                MobileNet
+                        </a>
+                        <a href="https://arxiv.org/pdf/1905.11946" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                EfficientNet
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Hu_Squeeze-and-Excitation_Networks_CVPR_2018_paper.pdf" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                SENet
+                        </a>
+                        <a href="https://lilianweng.github.io/posts/2020-08-06-nas/" 
+                            class="paper-link" 
+                            onclick="loadPaper(event, this)">
+                                Neural Architecture Search
+                        </a>
+                    </div>
+                </div>
+                <!-- Methods for Explaining CNNs -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Methods for Explaining CNNs
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1404.5997" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            One Weird Trick to Parallelize CNNs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1311.2901" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Visualizing and Understanding CNNs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1312.6034" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Deep Inside CNNs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1412.6806" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Striving for Simplicity: The All Convolutional Net
+                        </a>
+                        <a href="https://arxiv.org/pdf/1412.6856" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Class Activation Maps (CAM)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1610.02391" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Grad-CAM
+                        </a>
+                        <a href="https://arxiv.org/pdf/1710.11063" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Grad-CAM++
+                        </a>
+                        <a href="https://arxiv.org/pdf/1704.02685" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DeepLIFT
+                        </a>
+                        <a href="https://arxiv.org/pdf/1703.01365" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Integrated Gradients
+                        </a>
+                        <a href="https://arxiv.org/pdf/1706.03825" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            SmoothGrad
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/Kapishnikov_XRAI_Better_Attributions_Through_Regions_ICCV_2019_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            XRAI: Better Attributions Through Regions
+                        </a>
+                        <a href="https://arxiv.org/pdf/1602.04938" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Local Interpretable Model-agnostic Explanations (LIME)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1705.07874" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            SHAP (SHapley Additive exPlanations)
+                        </a>
+                        <a href="https://research.google/blog/deepdream-a-code-example-for-visualizing-neural-networks/" 
+                        class="paper-link" 
+                        target="_blank">
+                            DeepDream
+                        </a>
+                        <a href="https://arxiv.org/pdf/1508.06576" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Neural Style Transfer
+                        </a>
+                    </div>
+                </div>
+                <!-- Object Detection -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Object Detection
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1312.6229" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            OverFeat
+                        </a>
+                        <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            R-CNN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1504.08083" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Fast R-CNN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1506.01497" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Faster R-CNN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1506.02640" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            YOLOv1
+                        </a>
+                        <a href="https://arxiv.org/pdf/1512.02325" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Single Shot MultiBox Detector (SSD)
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Lin_Feature_Pyramid_Networks_CVPR_2017_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Feature Pyramid Networks
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_ICCV_2017/papers/Lin_Focal_Loss_for_ICCV_2017_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Focal Loss for Dense Object Detection
+                        </a>
+                    </div>
+                </div>
+                <!-- Segmentation -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Segmentation
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1411.4038" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Fully Convolutional Networks (FCNs)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1511.00561" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            SegNet
+                        </a>
+                        <a href="https://arxiv.org/pdf/1505.04597" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            U-Net
+                        </a>
+                        <a href="https://jiaya.me/file/papers/PSPNet_cvpr17.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Pyramid Scene Parsing Network (PSPNet)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1606.00915" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DeepLab
+                        </a>
+                        <a href="https://arxiv.org/pdf/1802.02611" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DeepLabV3
+                        </a>
+                        <a href="https://arxiv.org/pdf/1703.06870" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Mask R-CNN
+                        </a>
+                    </div>
+                </div>
+                <!-- Face Recognition -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Face Recognition
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1804.06655" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Deep Face Recognition: A Survey
+                        </a>
+                        <a href="https://papers.neurips.cc/paper_files/paper/1993/file/288cc0ff022877bd3df94bc9360b9c5d-Paper.pdf" 
+                        class="paper-link" 
+                        target="_blank">
+                            Siamese Networks
+                        </a>
+                        <a href="https://www.cs.toronto.edu/~ranzato/publications/taigman_cvpr14.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DeepFace
+                        </a>
+                        <a href="https://arxiv.org/pdf/1406.4773" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Deep Learning Face Representation by Joint Identification-Verification
+                        </a>
+                        <a href="https://arxiv.org/pdf/1503.03832" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            FaceNet
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Liu_SphereFace_Deep_Hypersphere_CVPR_2017_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            SphereFace
+                        </a>
+                    </div>
+                </div>
+                <!-- Human Pose and Crowds -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Human Pose and Crowds
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1312.4659" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DeepPose
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2016/papers/Carreira_Human_Pose_Estimation_CVPR_2016_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Human Pose Estimation with Iterative Error Feedback
+                        </a>
+                        <a href="https://arxiv.org/pdf/1411.4280" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Efficient Object Localization Using Convolutional Networks
+                        </a>
+                        <a href="https://arxiv.org/pdf/2003.12783" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            CNN-based Density Estimation and Crowd Counting
+                        </a>
+                        <a href="https://yangliang.github.io/pdf/sp055u.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Deep People Counting in Extremely Dense Crowds
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Single-Image Crowd Counting via Multi-Column CNN
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Sam_Switching_Convolutional_Neural_CVPR_2017_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Switching Convolutional Neural Network for Crowd Counting
+                        </a>
+                        <a href="https://arxiv.org/pdf/1711.04433" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Crowd Counting via Scale-Adaptive CNN
+                        </a>
+                        <a href="https://xinyachen21.github.io/assets/pdf/Scale_Pyramid_Network_for_Crowd_Counting.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Scale Pyramid Network for Crowd Counting
+                        </a>
+                    </div>
+                </div>
+                <!-- Depth Estimation -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Depth Estimation
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://www.cs.utoronto.ca/~bonner/courses/2020s/csc2547/papers/discriminative/image-transformation/depth-prediction,-eigen,-nips-2014.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Depth Map Prediction from a Single Image
+                        </a>
+                        <a href="https://arxiv.org/pdf/1803.02276" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            GeoNet
+                        </a>
+                    </div>
+                </div>
+                <!-- Super Resolution -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Super Resolution
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://pdfs.semanticscholar.org/66e9/dc728b5041271bff0cd6ac0d7eadcd88442f.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Image Super-Resolution Using CNNs
+                        </a>
+                    </div>
+                </div>
+                <!-- Anomaly Detection -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Anomaly Detection
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1706.02690" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Enhancing Reliability of Out-of-Distribution Detection
+                        </a>
+                    </div>
+                </div>
+                <!-- Video Understanding -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Video Understanding
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://www.dbs.ifi.lmu.de/~yu_k/icml2010_3dcnn.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            3D CNNs for Human Action Recognition
+                        </a>
+                        <a href="https://arxiv.org/pdf/1406.2199" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Two-Stream CNNs for Action Recognition
+                        </a>
+                        <a href="https://arxiv.org/pdf/1411.4389" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Long-term Recurrent CNNs for Video Recognition
+                        </a>
+                    </div>
+                </div>
+                <!-- Attention Models in Vision -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Attention Models in Vision
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1409.0473" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Neural Machine Translation with Attention
+                        </a>
+                        <a href="https://arxiv.org/pdf/1508.04025" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Effective Attention-based Neural Machine Translation
+                        </a>
+                        <a href="https://arxiv.org/pdf/1502.03044" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Show, Attend, and Tell: Neural Image Captioning
+                        </a>
+                        <a href="https://arxiv.org/pdf/1502.04623" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DRAW: A Recurrent Neural Network for Image Generation
+                        </a>
+                        <a href="https://arxiv.org/pdf/1506.02025" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Spatial Transformer Networks
+                        </a>
+                        <a href="https://arxiv.org/pdf/1706.03762" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Attention is All You Need
+                        </a>
+                        <a href="https://arxiv.org/pdf/2010.11929" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Vision Transformers
+                        </a>
+                    </div>
+                </div>
+                <!-- Transformer-Based Models -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Transformer-Based Models
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/2106.10270" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            How to Train Your ViT?
+                        </a>
+                        <a href="https://arxiv.org/pdf/2012.12877" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Data-Efficient Transformers (DEiT)
+                        </a>
+                        <a href="https://arxiv.org/pdf/2103.14030" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Swin Transformers
+                        </a>
+                    </div>
+                </div>
+                <!-- Transformer-Based Object Detection -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Transformer-Based Object Detection
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/2005.12872" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DETR: End-to-End Object Detection with Transformers
+                        </a>
+                        <a href="https://arxiv.org/pdf/2010.04159" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Deformable DETR
+                        </a>
+                        <a href="https://arxiv.org/pdf/2201.12329" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Dynamic Anchor Boxes DETR
+                        </a>
+                        <a href="https://arxiv.org/pdf/2203.01305" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Denoising DETR
+                        </a>
+                        <a href="https://arxiv.org/pdf/2108.06152" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Conditional DETR
+                        </a>
+                        <a href="https://arxiv.org/pdf/2307.11035" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Cascade DETR
+                        </a>
+                        <a href="https://arxiv.org/pdf/2203.03605" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DINO
+                        </a>
+                        <a href="https://arxiv.org/pdf/2303.05499" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Grounding DINO
+                        </a>
+                    </div>
+                </div>
+                <!-- Transformer-Based Image Segmentation -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Transformer-Based Image Segmentation
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/2304.02643" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Segment Anything
+                        </a>
+                        <a href="https://arxiv.org/pdf/2102.06583" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Reviving Iterative Training with Mask Guidance
+                        </a>
+                        <a href="https://arxiv.org/pdf/2401.14159" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Grounded SAM
+                        </a>
+                        <a href="https://arxiv.org/pdf/2303.05657" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Tag2Text
+                        </a>
+                        <a href="https://arxiv.org/pdf/2306.03514" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Recognize Anything
+                        </a>
+                    </div>
+                </div>
+                <!-- Vision-Language Models -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Vision-Language Models
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/2103.00020" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            CLIP: Connecting Text and Images
+                        </a>
+                        <a href="https://arxiv.org/pdf/2201.12086" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            BLIP: Bootstrapped Language-Image Pretraining
+                        </a>
+                        <a href="https://arxiv.org/pdf/2301.12597" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            BLIP-2
+                        </a>
+                        <a href="https://arxiv.org/pdf/2112.03857" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            GLIP: Grounded Language-Image Pretraining
+                        </a>
+                        <a href="https://arxiv.org/pdf/2205.01917" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            CoCa: Contrastive Captioners
+                        </a>
+                        <a href="https://arxiv.org/pdf/2209.06794" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            PaLI: Pathways Language-Image Model
+                        </a>
+                        <a href="https://arxiv.org/pdf/2204.14198" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Flamingo: Visual-Language Models
+                        </a>
+                        <a href="https://arxiv.org/pdf/2112.04482" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            FLAVA: Foundational Language and Vision Alignment
+                        </a>
+                    </div>
+                </div>
+                <!-- Image Generation -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Image Generation
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://jmlr.org/papers/volume6/hyvarinen05a/hyvarinen05a.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Score Matching
+                        </a>
+                        <a href="https://proceedings.mlr.press/v9/gutmann10a/gutmann10a.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Non-Contrastive Estimation
+                        </a>
+                        <a href="https://arxiv.org/pdf/1406.2661" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            GANs: Generative Adversarial Networks
+                        </a>
+                        <a href="https://arxiv.org/pdf/1511.06434" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DCGAN: Deep Convolutional GANs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1706.08500" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Fréchet Inception Distance (FID)
+                        </a>
+                        <a href="https://arxiv.org/pdf/2003.05991" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            AutoEncoders
+                        </a>
+                        <a href="https://arxiv.org/pdf/1312.6114" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Variational Autoencoders (VAEs)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1511.05644" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Adversarial Autoencoder
+                        </a>
+                        <a href="https://arxiv.org/pdf/1512.09300" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            VAE-GAN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1410.8516" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            NICE: Non-linear Independent Components Estimation
+                        </a>
+                        <a href="https://arxiv.org/pdf/1605.08803" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Real NVP
+                        </a>
+                        <a href="https://arxiv.org/pdf/1601.06759" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Pixel RNNs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1612.03242" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            StackGAN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1710.10196" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Progressive GANs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1812.04948" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            StyleGAN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1903.07291" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Semantic Image Synthesis with Spatially-Adaptive Normalization
+                        </a>
+                        <a href="https://arxiv.org/pdf/1809.11096" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Large Scale GAN for High Fidelity Natural Image Synthesis
+                        </a>
+                        <a href="https://arxiv.org/pdf/1805.08318" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Self-Attention GANs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1611.07004" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Pix2Pix
+                        </a>
+                        <a href="https://arxiv.org/pdf/1703.10593" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            CycleGAN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1703.00848" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            UNIT-GAN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1804.04732" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Multimodal UNIT-GAN
+                        </a>
+                        <a href="https://www.cs.toronto.edu/~bonner/courses/2022s/csc2547/papers/generative/disentangled-representations/beta-vae,-higgins,-iclr2017.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Beta-VAE
+                        </a>
+                        <a href="https://arxiv.org/pdf/1802.04942" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Isolating Sources of Disentanglement in VAEs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1611.06355" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            IcGAN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1609.04802" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Super-Resolution GAN
+                        </a>
+                        <a href="http://3dgan.csail.mit.edu/talks/3dgan_slides_nips.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            3D Object Generation using GANs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1803.07422" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Patch-Based Image Inpainting with GANs
+                        </a>
+                        <a href="https://arxiv.org/pdf/1609.02612" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Generating Videos with Scene Dynamics
+                        </a>
+                        <a href="https://arxiv.org/pdf/1705.00053" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            The Pose Knows
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/Chan_Everybody_Dance_Now_ICCV_2019_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Everybody Dance Now
+                        </a>
+                    </div>
+                </div>
+                <!-- Zero-Shot and Few-Shot Learning -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Zero-Shot and Few-Shot Learning
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1904.04232" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            A Close Look at Few-Shot Classification
+                        </a>
+                        <a href="https://arxiv.org/pdf/1904.05046" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Generalizing from a Few Examples: A Survey on Few-Shot Learning
+                        </a>
+                        <a href="https://arxiv.org/pdf/1703.03400" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Meta-Learning
+                        </a>
+                        <a href="https://arxiv.org/pdf/1606.04080" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Matching Networks for One-Shot Learning
+                        </a>
+                        <a href="https://arxiv.org/pdf/1712.00981" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Feature Generating Networks for Zero-Shot Learning
+                        </a>
+                    </div>
+                </div>
+                <!-- Adversarial Robustness -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Adversarial Robustness
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1703.08603" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Adversarial Examples for Semantic Segmentation and Object Detection
+                        </a>
+                        <a href="https://arxiv.org/pdf/1412.6572" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Fast Gradient Sign Method (FGSM)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1706.06083" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Projected Gradient Descent (PGD)
+                        </a>
+                        <a href="https://arxiv.org/pdf/1511.04599" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            DeepFool
+                        </a>
+                        <a href="https://arxiv.org/pdf/1608.04644" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Carlini & Wagner (C&W) Attack
+                        </a>
+                        <a href="https://arxiv.org/pdf/1511.07528" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Jacobian-based Saliency Map Attack
+                        </a>
+                        <a href="https://arxiv.org/pdf/1801.02612" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Spatially Transformed Adversarial Examples
+                        </a>
+                        <a href="https://arxiv.org/pdf/1906.00001" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Functional Adversarial Attacks
+                        </a>
+                        <a href="https://arxiv.org/pdf/1708.03999" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Zeroth-Order Optimization
+                        </a>
+                        <a href="https://arxiv.org/pdf/1612.06299" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Simple Black-Box Adversarial Perturbations
+                        </a>
+                        <a href="https://arxiv.org/pdf/1711.01991" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Mitigating Adversarial Effects Through Randomization
+                        </a>
+                        <a href="https://arxiv.org/pdf/1712.00673" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Towards Robust Neural Networks via Random Self-Ensemble
+                        </a>
+                        <a href="https://arxiv.org/pdf/1805.06605" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Defense GAN
+                        </a>
+                        <a href="https://arxiv.org/pdf/1511.04508" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Distillation as a Defense to Adversarial Perturbations
+                        </a>
+                        <a href="https://arxiv.org/pdf/1803.06373" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Adversarial Logit Pairing
+                        </a>
+                        <a href="https://arxiv.org/pdf/1901.08573" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Theoretically Principled Trade-off Between Robustness and Accuracy
+                        </a>
+                        <a href="https://arxiv.org/pdf/1903.12261" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Benchmarking Neural Network Robustness
+                        </a>
+                    </div>
+                </div>
+                <!-- Self-Supervised Learning -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Self-Supervised Learning
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1604.07379" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Context Encoders
+                        </a>
+                        <a href="https://arxiv.org/pdf/1603.09246" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Unsupervised Learning by Solving Jigsaw Puzzles
+                        </a>
+                        <a href="https://arxiv.org/pdf/1803.07728" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Unsupervised Learning by Predicting Image Rotations
+                        </a>
+                        <a href="https://arxiv.org/pdf/1603.08511" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Colorful Image Colorization
+                        </a>
+                        <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/He_Momentum_Contrast_for_Unsupervised_Visual_Representation_Learning_CVPR_2020_paper.pdf" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Momentum Contrast (MoCo)
+                        </a>
+                        <a href="https://arxiv.org/pdf/2002.05709" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            SimCLR
+                        </a>
+                        <a href="https://arxiv.org/pdf/2003.04297" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Improved Baselines with Momentum Contrastive Learning
+                        </a>
+                        <a href="https://arxiv.org/pdf/2006.07733" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Bootstrap Your Own Latent (BYOL)
+                        </a>
+                    </div>
+                </div>
+                <!-- Pruning and Model Compression -->
+                <div class="category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <span class="toggle-icon">▶</span>
+                        Pruning and Model Compression
+                    </div>
+                    <div class="sub-items">
+                        <a href="https://arxiv.org/pdf/1710.09282" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            A Survey of Model Compression and Acceleration
+                        </a>
+                        <a href="https://arxiv.org/pdf/1510.00149" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Deep Compression
+                        </a>
+                        <a href="https://arxiv.org/pdf/1503.02531" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Knowledge Distillation
+                        </a>
+                        <a href="https://arxiv.org/pdf/1803.03635" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            The Lottery Ticket Hypothesis
+                        </a>
+                        <a href="https://arxiv.org/pdf/1906.02773" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            One Ticket to Win Them All
+                        </a>
+                        <a href="https://arxiv.org/pdf/1909.11957" 
+                        class="paper-link" 
+                        onclick="loadPaper(event, this)">
+                            Drawing Early-Bird Tickets
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div id="paper-title">Select a paper from the sidebar</div>
+        <div id="pdf-container">
+            <iframe id="pdf-viewer" src="about:blank"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function toggleCategory(header) {
+            const subItems = header.parentElement.querySelector('.sub-items');
+            const icon = header.querySelector('.toggle-icon');
+            
+            subItems.classList.toggle('active');
+            icon.textContent = subItems.classList.contains('active') ? '▼' : '▶';
+        }
+
+        function loadPaper(event, link) {
+            event.preventDefault();
+            const pdfViewer = document.getElementById('pdf-viewer');
+            const paperTitle = document.getElementById('paper-title');
+            
+            // Update title
+            paperTitle.textContent = link.textContent;
+            
+            // Load PDF in the iframe
+            pdfViewer.src = link.href;
+        }
+
+        // Initialize with first paper
+        const firstPaper = document.querySelector('.paper-link');
+        if (firstPaper) {
+            loadPaper({ preventDefault: () => {} }, firstPaper);
+        }
+    </script>
+</body>
+</html>
